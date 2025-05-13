@@ -4,14 +4,13 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 namespace: community
-name: general
+name: general_vg
 version: 10.7.0
 readme: README.md
 authors:
   - Ansible (https://github.com/ansible)
 description: >-
-  The community.general collection is a part of the Ansible package and includes many modules and
-  plugins supported by Ansible community which are not part of more specialized community collections.
+  The community.general_vg collection is a modified personal version of the community.general collection.
 license_file: COPYING
 tags:
   - community

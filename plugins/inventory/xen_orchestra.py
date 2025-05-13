@@ -119,7 +119,7 @@ class InventoryModule(BaseInventoryPlugin, Constructable, Cacheable):
         self.inventory = inventory
         
         self.cache_key = self.get_cache_key(path)
-        self.use_cache = cache and self.get_option('cache')
+        self.use_cache = cache
 
         xoa_api_host = self.get_option('api_host')
         xoa_user = self.get_option('user')

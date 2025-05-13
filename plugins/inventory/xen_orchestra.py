@@ -1,7 +1,11 @@
 import XenAPI
 import ssl
+from time import sleep
+
 from ansible.errors import AnsibleError
 from ansible.plugins.inventory import BaseInventoryPlugin, Constructable, Cacheable
+
+from ansible_collections.community.general.plugins.plugin_utils.unsafe import make_unsafe
 
 HALTED = 'Halted'
 PAUSED = 'Paused'
@@ -111,6 +115,16 @@ class InventoryModule(BaseInventoryPlugin, Constructable, Cacheable):
         self._add_pools(objects['pools'])
         self._add_hosts(objects['hosts'])
         self._add_vms(objects['vms'], objects['hosts'], objects['pools'])
+
+    def verify_file(self, path):
+        valid = False
+        if super(InventoryModule, self).verify_file(path):
+            if path.endswith(('xen_orchestra.yaml', 'xen_orchestra.yml')):
+                valid = True
+            else:
+                self.display.vvv(
+                    'Skipping due to inventory source not ending in "xen_orchestra.yaml" nor "xen_orchestra.yml"')
+        return valid
 
     def parse(self, inventory, loader, path, cache=True):
         super(InventoryModule, self).parse(inventory, loader, path)
